@@ -4,7 +4,7 @@
     Plugin URI: http://www.kaymeephotography.com
     Description: Plugin for displaying images from a Photocart Photography Shopping Cart by PicturesPro using a shortcode
     Author: Chad McCoskey
-    Version: 1.0
+    Version: 1.01
     Author URI: http://www.kaymeephotography.com
     Copyright 2014  Chad McCoskey  (email : chad@kaymeephotography.com)
     This program is free software; you can redistribute it and/or modify
@@ -79,6 +79,23 @@ function photocart_link_images($imgInfo) {
   $pcDBUser = trim($pc_options["pc_DBUser"]);
   $pcDBPass = trim($pc_options["pc_DBPass"]);
 
+  //CREATE BUTTON STYLING
+  $btnStyle = "style=\"";
+  $btnText = " value='View in Cart'";
+  if ($pc_options["pc_btnBG"] ||  $pc_options["pc_btnBG"] != "") {
+    $btnStyle .= "background-color:".$pc_options["pc_btnBG"].";";
+  }
+  if ($pc_options["pc_btnTextColor"] ||  $pc_options["pc_btnTextColor"] != "") {
+    $btnStyle .= "color:".$pc_options["pc_btnTextColor"].";";
+  }
+  if ($pc_options["pc_btnFontSize"] ||  $pc_options["pc_btnFontSize"] != "") {
+    $btnStyle .= "font-size:".$pc_options["pc_btnFontSize"]."px;";
+  }
+  if ($pc_options["pc_btnText"] ||  $pc_options["pc_btnText"] != "") {
+    $btnText = " value='".$pc_options["pc_btnText"]."'";
+  }
+  $btnStyle .= "\"";
+
   //echo "HOST: ".$pcDB."<BR>";
   //echo "options:<pre>"; print_r($pc_options); echo "</pre>";
   //echo "imgID = $imgID && type = $imgType<BR>";
@@ -137,7 +154,14 @@ function photocart_link_images($imgInfo) {
 
   echo "<div class='pc_caption pc_alignleft' style='width: ".$imgWidth."px'><h3>".$imgTitle."</h3><img src='".$imgPath."' width='".$imgWidth."'>
   <p class='pc_caption-text pc_caption.pc_alignleft'>".$imgCaption."</p><BR>
-  <input type=button value='View in Cart' onclick=window.open('".$appLoc."/index.php?do=photocart&viewGallery=".$gal."#image=".$imgID."','_blank')></div><BR><BR>";
+  ";
+
+  $pcLink = $appLoc."/index.php?do=photocart&viewGallery=".$gal."#image=".$imgID;
+
+  echo "
+  <input type=button ".$btnStyle.$btnText." onclick=window.open('".$pcLink."','_blank')>";
+
+  echo "</div><BR><BR>";
 }
 /* END MAIN FUNCTION */
 
