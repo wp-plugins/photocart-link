@@ -23,12 +23,9 @@ http://kaymeephotography.com/wordpress/downloads/photocart-link/
 1. Upload all photocart_link files to the /wp-content/plugins/photocart_link/ directory.
 2. Activate the plugin through the Plugins menu in WordPress.
 
-== Setup ==
 Access the PhotoCart Link settings page (Settings-PhotoCart Link)
 Enter the directory location for the Photocart photos using a full URL (http://www.mysite.com/photocart/photos/)
 Enter the Photocart database information with hostname, username, and password.
-
-== Usage ==
 To display a Photocart image in a post or page enter the shortcode [photocart_link]
 The following variables are allowed:
 imageID= (required)
@@ -53,7 +50,6 @@ imageTitle= (optional)
 	--Entering a title will override an entered title for the photo.
 	Defaults to the title entered for the photo in Photocart.
 
-== EXAMPLES ==
 BASE: [photocart_link imageID="99999"]
 	--Defaults to imageType="full", size of image in Photocart,
 	caption and title of image in Photocart.
@@ -61,17 +57,22 @@ BASE: [photocart_link imageID="99999"]
 OPTIONS:
 [photocart_link imageID="99999" imageType="thumb" imageWidth="300" imageCaption="Image Caption" imageTitle="Image Title"]
 
-== Notes ==
 The image display CSS can be edited by modifying the photocart_link.css.
 
 == Frequently Asked Questions ==
+= None Yet = 
 
 == Screenshots ==
+= NA = 
 
 == Changelog === 
-1.0 =* Initial release.
-1.01 =* Added button styling
+= 1.0 =
+* Initial release.
+= 1.01 =
+*Added button styling
 
 == Upgrade Notice === 
-1.0 =* Initial release.
-1.01 =* Added button styling
+= 1.0 =
+* Initial release.
+= 1.01 =
+* Added button styling
