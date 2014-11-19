@@ -3,7 +3,7 @@ Contributors: Chad McCoskey
 Tags: photocart, picturespro
 Requires at least: 3.0.1
 Tested up to: 4.0
-Stable tag: 4.5
+Stable tag: 1.01
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -14,8 +14,10 @@ Provides a shortcode to connect to a PicturesPro Photocart Photography Shopping 
 
 Features
 Place a shortcode with the required photocart image id and optional variables to display a Photocart image on a post or page.
+Customizable button on image links.
 
 http://www.kaymeephotography.com
+http://kaymeephotography.com/wordpress/downloads/photocart-link/
 
 == Installation ==
 1. Upload all photocart_link files to the /wp-content/plugins/photocart_link/ directory.
@@ -62,8 +64,14 @@ OPTIONS:
 == Notes ==
 The image display CSS can be edited by modifying the photocart_link.css.
 
+== Frequently Asked Questions ==
+
+== Screenshots ==
+
 == Changelog === 
 1.0 =* Initial release.
+1.01 =* Added button styling
 
 == Upgrade Notice === 
 1.0 =* Initial release.
+1.01 =* Added button styling
