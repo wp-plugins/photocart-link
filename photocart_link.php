@@ -4,7 +4,7 @@
     Plugin URI: http://www.kaymeephotography.com
     Description: Plugin for displaying images from a Photocart Photography Shopping Cart by PicturesPro using a shortcode
     Author: Chad McCoskey
-    Version: 1.01
+    Version: 1.02
     Author URI: http://www.kaymeephotography.com
     Copyright 2014  Chad McCoskey  (email : chad@kaymeephotography.com)
     This program is free software; you can redistribute it and/or modify
@@ -52,6 +52,12 @@ function photocart_link_images($imgInfo) {
     else {
       $imgWidth = $imgInfo["imagewidth"];
     }
+    if ($imgInfo["imageheight"] == "" || !$imgInfo["imageheight"]) {
+      $imgHeight = "";
+    }
+    else {
+      $imgHeight = $imgInfo["imageheight"];
+    }
     if ($imgInfo["imagecaption"] == "" || !$imgInfo["imagecaption"]) {
       $imgCaption = "";
     }
@@ -64,13 +70,28 @@ function photocart_link_images($imgInfo) {
     else {
       $imgTitle = $imgInfo["imagetitle"];
     }
+    if ($imgInfo["imagealign"] == "" || !$imgInfo["imagealign"]) {
+      $imgAlign = "none";
+    }
+    else {
+      $imgAlign = $imgInfo["imagealign"];
+    }
+    if ($imgInfo["contsize"] == "" || !$imgInfo["contsize"]) {
+      $contSize = "";
+    }
+    else {
+      $contSize = $imgInfo["contsize"];
+    }
   }
   else {
     $imgID = $imgInfo;
     $imgType = "full";
     $imgWidth = "";
+    $imgHeight = "";
     $imgCaption = "";
     $imgTitle = "";
+    $imgAlign = "none";
+    $contSize = "";
   }
 
   $pc_options = get_option("photocart_link_options");
@@ -143,17 +164,22 @@ function photocart_link_images($imgInfo) {
   $appLoc = substr($pcDir, 0, strrpos($pcDir,"/",-2));
   $gal = substr($galDir,0,strpos($galDir,"-"));
   $imgPath = plugins_url('decode.php',__FILE__)."?id=".base64_encode($pcDir.$galDir."/".$imgFile);
-  //$imgPath = $pcDir.$galDir."/".$imgFile;
+  if ($contSize[strLen($contSize)-1] != "%") $contSize .= "%";
 
-  //echo "$pcDir <BR> $appLoc <BR> $galDir <BR> $imgWidth <BR> $imgCaption <BR> $imgTitle <BR>";
+  //echo "$pcDir <BR> $appLoc <BR> $galDir <BR> $imgWidth <BR> $imgHeight <BR> $imgCaption <BR> $imgTitle <BR> $imgAlign <BR> $contSize <BR>";
 ?>
 
 <?php
   echo "<link rel='stylesheet' href='".$plugins_url."photocart_link.css' type='text/css' media='screen' />
-  ";
+  <style type='text/css'>
+  .pc_img {
+    width:".$imgWidth."px;
+    height:".$imgHeight."px;
+  }
+  </style>";
 
-  echo "<div class='pc_caption pc_alignleft' style='width: ".$imgWidth."px'><h3>".$imgTitle."</h3><img src='".$imgPath."' width='".$imgWidth."'>
-  <p class='pc_caption-text pc_caption.pc_alignleft'>".$imgCaption."</p><BR>
+  echo "<div style='width:".$contSize."' class='pc_caption pc_align".$imgAlign."'><h3>".$imgTitle."</h3><img src='".$imgPath."' class='pc_img'>
+  <p class='pc_caption-text pc_caption.pc_align".$imgAlign."'>".$imgCaption."</p><BR>
   ";
 
   $pcLink = $appLoc."/index.php?do=photocart&viewGallery=".$gal."#image=".$imgID;
