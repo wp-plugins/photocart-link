@@ -4,7 +4,7 @@
     Plugin URI: http://www.kaymeephotography.com
     Description: Plugin for displaying images from a Photocart Photography Shopping Cart by PicturesPro using a shortcode
     Author: Chad McCoskey
-    Version: 1.02
+    Version: 1.1
     Author URI: http://www.kaymeephotography.com
     Copyright 2014  Chad McCoskey  (email : chad@kaymeephotography.com)
     This program is free software; you can redistribute it and/or modify
