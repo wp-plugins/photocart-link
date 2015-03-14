@@ -2,8 +2,8 @@
 Contributors: Chad McCoskey
 Tags: photocart, picturespro
 Requires at least: 3.0.1
-Tested up to: 4.0
-Stable tag: 1.02
+Tested up to: 4.1.1
+Stable tag: 1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -67,13 +67,17 @@ contSize= (optional)
         --Entering an number will set the container size in relation to overall container size
         Enter as a percentage (50%)
 
+noImage= (option)
+	--Enter true/false to display the image from the store or not.
+	Defaults to false (to display the image)
+
 EXAMPLES
 BASE: [photocart_link imageID="99999"]
 	--Defaults to imageType="full", size of image in Photocart,
 	caption and title of image in Photocart, no alignment, full size container
 
 OPTIONS:
-[photocart_link imageID="99999" imageType="thumb" imageWidth="300" imageHeight="300" imageAlign="left" imageCaption="Image Caption" imageTitle="Image Title" contSize="50%"]
+[photocart_link imageID="99999" imageType="thumb" imageWidth="300" imageHeight="300" imageAlign="left" imageCaption="Image Caption" imageTitle="Image Title" contSize="50%" noImage="false"]
 
 Notes
 The image display CSS can be edited by modifying the photocart_link.css.
@@ -83,6 +87,9 @@ other dimension will create a image proportional to the original.
 == Screenshots ==
 
 == Changelog ==
+= 1.1 =
+*Added noImage attribute
+*Updated the way the shortcode displayed the container
 = 1.02 =
 *Added flexible image height
 *Added flexible container alignment
@@ -93,6 +100,9 @@ other dimension will create a image proportional to the original.
 *Initial release.
 
 == Upgrade Notice ==
+= 1.1 =
+*Added noImage attribute
+*Updated the way the shortcode displayed the container
 = 1.02 =
 *Added flexible image height
 *Added flexible container alignment

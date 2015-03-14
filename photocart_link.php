@@ -77,10 +77,16 @@ function photocart_link_images($imgInfo) {
       $imgAlign = $imgInfo["imagealign"];
     }
     if ($imgInfo["contsize"] == "" || !$imgInfo["contsize"]) {
-      $contSize = "";
+      $contSize = "100";
     }
     else {
       $contSize = $imgInfo["contsize"];
+    }
+    if ($imgInfo["noimage"] == "" || !$imgInfo["noimage"]) {
+      $noImage = "false";
+    }
+    else {
+      $noImage = $imgInfo["noimage"];
     }
   }
   else {
@@ -91,7 +97,8 @@ function photocart_link_images($imgInfo) {
     $imgCaption = "";
     $imgTitle = "";
     $imgAlign = "none";
-    $contSize = "";
+    $contSize = "100";
+    $noImage = "false";
   }
 
   $pc_options = get_option("photocart_link_options");
@@ -170,24 +177,35 @@ function photocart_link_images($imgInfo) {
 ?>
 
 <?php
-  echo "<link rel='stylesheet' href='".$plugins_url."photocart_link.css' type='text/css' media='screen' />
+  $output = "<link rel='stylesheet' href='".$plugins_url."photocart_link.css' type='text/css' media='screen' />
   <style type='text/css'>
-  .pc_img {
-    width:".$imgWidth."px;
-    height:".$imgHeight."px;
+  .pc_img { ";
+
+    if ($imgWidth) { $output .= "	width:".$imgWidth."px;"; }
+    if ($imgHeight) { $output .= "    height:".$imgHeight."px;"; }
+
+  $output .= "
   }
   </style>";
 
-  echo "<div style='width:".$contSize."' class='pc_caption pc_align".$imgAlign."'><h3>".$imgTitle."</h3><img src='".$imgPath."' class='pc_img'>
-  <p class='pc_caption-text pc_caption.pc_align".$imgAlign."'>".$imgCaption."</p><BR>
-  ";
+  $output .= "<div style='width:".$contSize."' class='pc_caption pc_align".$imgAlign."'>";
+
+  if ($noImage == "false") {
+    $output .= "
+    <h3>".$imgTitle."</h3><img src='".$imgPath."' class='pc_img'>
+    <p class='pc_caption-text pc_caption.pc_align".$imgAlign."'>".$imgCaption."</p><BR>
+    ";
+  }
 
   $pcLink = $appLoc."/index.php?do=photocart&viewGallery=".$gal."#image=".$imgID;
 
-  echo "
+  $output .= "
   <input type=button ".$btnStyle.$btnText." onclick=window.open('".$pcLink."','_blank')>";
 
-  echo "</div><BR><BR>";
+  $output .= "</div><BR><BR>";
+
+  return $output;
+  //echo $output;
 }
 /* END MAIN FUNCTION */
 
@@ -199,4 +217,4 @@ function photocart_link_admin() {
   include("photocart_link_admin.php");
 }
 if (is_admin()) { add_action('admin_menu', 'photocart_link_admin_actions'); }
-add_shortcode('photocart_link', 'photocart_link_images'); //ADD SHORTCODE OPTION [photocart_link imageID={id} imageType={full/thumb} ]
+add_shortcode('photocart_link','photocart_link_images'); //ADD SHORTCODE OPTION [photocart_link imageID={id} imageType={full/thumb} ] //'photocart_link_images'
