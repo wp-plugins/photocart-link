@@ -3,7 +3,7 @@ Contributors: Chad McCoskey
 Tags: photocart, picturespro
 Requires at least: 3.0.1
 Tested up to: 4.1.1
-Stable tag: 1.1
+Stable tag: 1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -87,6 +87,8 @@ other dimension will create a image proportional to the original.
 == Screenshots ==
 
 == Changelog ==
+= 1.2 =
+*Added a lightbox http://lokeshdhakar.com/projects/lightbox2/ *
 = 1.1 =
 *Added noImage attribute
 *Updated the way the shortcode displayed the container
@@ -100,6 +102,8 @@ other dimension will create a image proportional to the original.
 *Initial release.
 
 == Upgrade Notice ==
+= 1.2 =
+*Added a lightbox http://lokeshdhakar.com/projects/lightbox2/ *
 = 1.1 =
 *Added noImage attribute
 *Updated the way the shortcode displayed the container

@@ -4,7 +4,7 @@
     Plugin URI: http://www.kaymeephotography.com
     Description: Plugin for displaying images from a Photocart Photography Shopping Cart by PicturesPro using a shortcode
     Author: Chad McCoskey
-    Version: 1.1
+    Version: 1.2
     Author URI: http://www.kaymeephotography.com
     Copyright 2014  Chad McCoskey  (email : chad@kaymeephotography.com)
     This program is free software; you can redistribute it and/or modify
@@ -141,6 +141,7 @@ function photocart_link_images($imgInfo) {
     $imgTH = $imgResults->pic_th;
     $imgTle = $imgResults->pic_title;
     $imgText = $imgResults->pic_text;
+    $imgZoom = $imgPic;
   }
 
   $gal_query_results = $newdb->get_results("SELECT gal_id, gal_folder FROM galleries WHERE gal_id = $imgGal");
@@ -171,14 +172,20 @@ function photocart_link_images($imgInfo) {
   $appLoc = substr($pcDir, 0, strrpos($pcDir,"/",-2));
   $gal = substr($galDir,0,strpos($galDir,"-"));
   $imgPath = plugins_url('decode.php',__FILE__)."?id=".base64_encode($pcDir.$galDir."/".$imgFile);
+  $zoomPath = plugins_url('decode.php',__FILE__)."?id=".base64_encode($pcDir.$galDir."/".$imgZoom);
   if ($contSize[strLen($contSize)-1] != "%") $contSize .= "%";
 
   //echo "$pcDir <BR> $appLoc <BR> $galDir <BR> $imgWidth <BR> $imgHeight <BR> $imgCaption <BR> $imgTitle <BR> $imgAlign <BR> $contSize <BR>";
 ?>
 
 <?php
-  $output = "<link rel='stylesheet' href='".$plugins_url."photocart_link.css' type='text/css' media='screen' />
-  <style type='text/css'>
+  $output = "
+  <link rel='stylesheet' href='".$plugins_url."photocart_link.css' type='text/css' media='screen' />
+  <link href='".plugin_dir_url( __FILE__ )."lightbox/css/lightbox.css' rel='stylesheet' />
+  <script src='".plugin_dir_url( __FILE__ )."lightbox/js/jquery-1.11.0.min.js'></script>
+  <script src='".plugin_dir_url( __FILE__ )."lightbox/js/lightbox.min.js'></script>
+
+  <style>
   .pc_img { ";
 
     if ($imgWidth) { $output .= "	width:".$imgWidth."px;"; }
@@ -188,11 +195,11 @@ function photocart_link_images($imgInfo) {
   }
   </style>";
 
-  $output .= "<div style='width:".$contSize."' class='pc_caption pc_align".$imgAlign."'>";
+  $output .= "<div style='width:".$contSize."' class='photocart pc_caption pc_align".$imgAlign."'>";
 
   if ($noImage == "false") {
     $output .= "
-    <h3>".$imgTitle."</h3><img src='".$imgPath."' class='pc_img'>
+    <h3>".$imgTitle."</h3><a href='".$zoomPath."' data-lightbox='".$imgZoom."' data-title='".$imgTitle."'><img id=photocart src='".$imgPath."' class='pc_img'></a>
     <p class='pc_caption-text pc_caption.pc_align".$imgAlign."'>".$imgCaption."</p><BR>
     ";
   }
