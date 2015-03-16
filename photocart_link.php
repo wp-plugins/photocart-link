@@ -4,7 +4,7 @@
     Plugin URI: http://www.kaymeephotography.com
     Description: Plugin for displaying images from a Photocart Photography Shopping Cart by PicturesPro using a shortcode
     Author: Chad McCoskey
-    Version: 1.2
+    Version: 1.3
     Author URI: http://www.kaymeephotography.com
     Copyright 2014  Chad McCoskey  (email : chad@kaymeephotography.com)
     This program is free software; you can redistribute it and/or modify
@@ -30,7 +30,7 @@ function photocart_link_images($imgInfo) {
   //$imgInfo: imageID, imageType(thumb,full), imageWidth, imageTitle, imageCaption
   //echo "INSIDE photocart_images: <pre>"; print_r($imgInfo); echo "</pre>";
 
-  $plugins_url = plugins_url() . "/photocart_link/";
+  $plugins_url = plugins_url() . "/photocart-link/";
 
   if (is_array($imgInfo)) {
 
@@ -126,7 +126,17 @@ function photocart_link_images($imgInfo) {
 
   //echo "HOST: ".$pcDB."<BR>";
   //echo "options:<pre>"; print_r($pc_options); echo "</pre>";
-  //echo "imgID = $imgID && type = $imgType<BR>";
+/*
+  echo "imgID = $imgID <BR> 
+  type = $imgType<BR> 
+  width = $imgWidth <BR> 
+  height = $imgHeight <BR> 
+  caption = $imgCaption <BR> 
+  title = $imgTitle <BR> 
+  align = $imgAlign <BR> 
+  contSize = $contSize <BR> 
+  noImage = $noImage<BR>";
+*/
 
   $newdb = new wpdb($pcDBUser, $pcDBPass, $pcDBUser, $pcDB);
   $newdb->show_errors();
@@ -134,27 +144,27 @@ function photocart_link_images($imgInfo) {
   $img_query_results = $newdb->get_results("SELECT pic_id, pic_gal, pic_pic, pic_th, pic_org, pic_title, pic_text FROM pics WHERE pic_id=$imgID");
   foreach($img_query_results as $imgResults)
   {
-    $imgID = $imgResults->pic_id;
-    $imgOrg = $imgResults->pic_org;
-    $imgGal = $imgResults->pic_gal;
-    $imgPic = $imgResults->pic_pic;
-    $imgTH = $imgResults->pic_th;
-    $imgTle = $imgResults->pic_title;
-    $imgText = $imgResults->pic_text;
-    $imgZoom = $imgPic;
+    $pcID = $imgResults->pic_id;
+    $pcOrg = $imgResults->pic_org;
+    $pcGal = $imgResults->pic_gal;
+    $pcPic = $imgResults->pic_pic;
+    $pcTH = $imgResults->pic_th;
+    $pcTitle = $imgResults->pic_title;
+    $pcText = $imgResults->pic_text;
+    $pcZoom = $pcPic;
   }
 
-  $gal_query_results = $newdb->get_results("SELECT gal_id, gal_folder FROM galleries WHERE gal_id = $imgGal");
+  $gal_query_results = $newdb->get_results("SELECT gal_id, gal_folder FROM galleries WHERE gal_id = $pcGal");
 
   foreach($gal_query_results as $galResults)
   {
     $galDir = $galResults->gal_folder;
   }
   if ($imgType == "thumb") {
-    $imgFile = $imgTH;
+    $imgFile = $pcTH;
   }
   else {
-    $imgFile = $imgPic;
+    $imgFile = $pcPic;
   }
 
   if ($pcDir[strlen($pcDir)-1] != "/") {
@@ -162,20 +172,29 @@ function photocart_link_images($imgInfo) {
   }
 
   if ($imgCaption == "" || !$imgCaption) {
-    $imgCaption = $imgText;
+    $imgCaption = $pcText;
   }
 
   if ($imgTitle == "" || !$imgTitle) {
-    $imgTitle = $imgTle;
+    $imgTitle = $pcTitle;
   }
 
   $appLoc = substr($pcDir, 0, strrpos($pcDir,"/",-2));
   $gal = substr($galDir,0,strpos($galDir,"-"));
   $imgPath = plugins_url('decode.php',__FILE__)."?id=".base64_encode($pcDir.$galDir."/".$imgFile);
-  $zoomPath = plugins_url('decode.php',__FILE__)."?id=".base64_encode($pcDir.$galDir."/".$imgZoom);
+  $zoomPath = plugins_url('decode.php',__FILE__)."?id=".base64_encode($pcDir.$galDir."/".$pcZoom);
   if ($contSize[strLen($contSize)-1] != "%") $contSize .= "%";
 
-  //echo "$pcDir <BR> $appLoc <BR> $galDir <BR> $imgWidth <BR> $imgHeight <BR> $imgCaption <BR> $imgTitle <BR> $imgAlign <BR> $contSize <BR>";
+/* 
+  echo "pcID = $pcID<BR>
+  pcOrg = $pcOrg<BR>
+  pcGal = $pcGal<BR>
+  pcPic = $pcPic<BR>
+  pcTH = $pcTH<BR>
+  pcTitle = $pcTitle<BR>
+  pcText = $pcText<BR>
+  pcZoom = $pcZoom<BR>";
+*/
 ?>
 
 <?php
@@ -199,7 +218,7 @@ function photocart_link_images($imgInfo) {
 
   if ($noImage == "false") {
     $output .= "
-    <h3>".$imgTitle."</h3><a href='".$zoomPath."' data-lightbox='".$imgZoom."' data-title='".$imgTitle."'><img id=photocart src='".$imgPath."' class='pc_img'></a>
+    <h3>".$imgTitle."</h3><a href='".$zoomPath."' data-lightbox='".$pcZoom."' data-title='".$imgTitle."'><img id=photocart src='".$imgPath."' class='pc_img'></a>
     <p class='pc_caption-text pc_caption.pc_align".$imgAlign."'>".$imgCaption."</p><BR>
     ";
   }
@@ -215,6 +234,38 @@ function photocart_link_images($imgInfo) {
   //echo $output;
 }
 /* END MAIN FUNCTION */
+
+/******************* TINY MCE BUTTON ***************************/
+https://www.gavick.com/blog/wordpress-tinymce-custom-buttons
+add_action('admin_head', 'photocart_link_add_my_tc_button');
+function photocart_link_add_my_tc_button() {
+    global $typenow;
+    // check user permissions
+    if ( !current_user_can('edit_posts') && !current_user_can('edit_pages') ) {
+    return;
+    }
+    // verify the post type
+    if( ! in_array( $typenow, array( 'post', 'page' ) ) )
+        return;
+    // check if WYSIWYG is enabled
+    if ( get_user_option('rich_editing') == 'true') {
+        add_filter("mce_external_plugins", "photocart_link_add_tinymce_plugin");
+        add_filter('mce_buttons', 'photocart_link_register_my_tc_button');
+    }
+}
+
+function photocart_link_add_tinymce_plugin($plugin_array) {
+    $plugin_array['photocart_link_tc_button'] = plugins_url( '/editor_plugin.js', __FILE__ ); // CHANGE THE BUTTON SCRIPT HERE
+    return $plugin_array;
+}
+
+function photocart_link_register_my_tc_button($buttons) {
+   array_push($buttons, "photocart_link_tc_button");
+   return $buttons;
+}
+
+
+/******************* TINY MCE BUTTON ***************************/
 
 /************************************** ADD OPTIONS MENU TO ADMIN -> SETTINGS**************************************/
 function photocart_link_admin_actions() {
