@@ -1,9 +1,5 @@
 function photocart_link_html_button() {
-
-  jQuery(document).ready(function() {
-//    event.defaultPrevented;
-
-    jQuery("<div style='display:hidden' id='dialog-form' title='Add Photocart Link Attributes'><table border=0 width=100%>" +
+    jQuery("<div style='display:none' id='dialog-form' title='Add Photocart Link Attributes'><table border=0 width=100%>" +
       "<tr><td>imageID</td><td><input type=text size=20 id=imageID name=imageID></td></tr>" +
       "<tr><td>imageType</td><td><select id=imageType name=imageType><option value='full'>Full</option>" +
         "<option value='thumb'>Thumb</option></select></td></tr>" +
@@ -17,9 +13,6 @@ function photocart_link_html_button() {
       "<tr><td>noImage</td><td><select id=noImage name=noImage><option value='false'>False</option>" +
         "<option value='true'>True</option></select></td></tr>" +
       "</table></div>").appendTo("body");
-
-    dialog.dialog("open");
-  });
 
     dialog = jQuery( "#dialog-form" ).dialog({
       'dialog-class': 'wp-dialog',
@@ -51,6 +44,10 @@ function photocart_link_html_button() {
         }
       ]
     });
+
+  jQuery(document).ready(function() {
+    dialog.dialog("open");
+  });
 }
 
 (function() {
