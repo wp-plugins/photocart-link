@@ -3,7 +3,7 @@ Contributors: Chad McCoskey
 Tags: photocart, picturespro
 Requires at least: 3.0.1
 Tested up to: 4.1.1
-Stable tag: 1.3
+Stable tag: 1.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -21,7 +21,7 @@ http://kaymeephotography.com/wordpress/downloads/photocart-link/
 
 
 == Installation ==
-1. Upload all photocart_link files to the /wp-content/plugins/photocart_link/ directory.
+1. Upload all photocart_link files to the /wp-content/plugins/photocart-link/ directory.
 2. Activate the plugin through the Plugins menu in WordPress.
 
 Access the PhotoCart Link settings page (Settings-PhotoCart Link)
@@ -87,6 +87,8 @@ other dimension will create a image proportional to the original.
 == Screenshots ==
 
 == Changelog ==
+= 1.4 =
+*Added a quicktag button to the TEXT editor to make setting shortcode attributes easier
 = 1.3 =
 *Added a TINYMCE button to the WYSIWYG editor to make setting shortcode attributes easier
 = 1.2 =
@@ -104,6 +106,8 @@ other dimension will create a image proportional to the original.
 *Initial release.
 
 == Upgrade Notice ==
+= 1.4 =
+*Added a quicktag button to the TEXT editor to make setting shortcode attributes easier
 = 1.3 =
 *Added a TINYMCE button to the WYSIWYG editor to make setting shortcode attributes easier
 = 1.2 =

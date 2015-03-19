@@ -4,7 +4,7 @@
     Plugin URI: http://www.kaymeephotography.com
     Description: Plugin for displaying images from a Photocart Photography Shopping Cart by PicturesPro using a shortcode
     Author: Chad McCoskey
-    Version: 1.3
+    Version: 1.4
     Author URI: http://www.kaymeephotography.com
     Copyright 2014  Chad McCoskey  (email : chad@kaymeephotography.com)
     This program is free software; you can redistribute it and/or modify
@@ -236,7 +236,7 @@ function photocart_link_images($imgInfo) {
 /* END MAIN FUNCTION */
 
 /******************* TINY MCE BUTTON ***************************/
-https://www.gavick.com/blog/wordpress-tinymce-custom-buttons
+//https://www.gavick.com/blog/wordpress-tinymce-custom-buttons
 add_action('admin_head', 'photocart_link_add_my_tc_button');
 function photocart_link_add_my_tc_button() {
     global $typenow;
@@ -264,8 +264,55 @@ function photocart_link_register_my_tc_button($buttons) {
    return $buttons;
 }
 
-
 /******************* TINY MCE BUTTON ***************************/
+
+/******************* HTML EDITOR BUTTON ****************************/
+
+
+// Add buttons to html editor
+add_action('admin_print_footer_scripts','eg_quicktags');
+add_action( 'admin_enqueue_scripts', 'queue_my_admin_scripts');
+
+function queue_my_admin_scripts() {
+    wp_enqueue_script (  'my-spiffy-miodal' ,       // handle
+                        plugins_url('/editor_plugin.js',__FILE__) ,       // source
+                        array('jquery-ui-dialog')); // dependencies
+    // A style available in WP               
+    wp_enqueue_style (  'wp-jquery-ui-dialog');
+}
+
+function eg_quicktags() {
+/*
+
+  <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/themes/ui-darkness/jquery-ui.css" rel="stylesheet">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+*/
+
+//<script type='text/javascript' src='<?php echo plugins_url('/editor_plugin.js',__FILE__) ?>'></script>
+?>
+
+  <script type="text/javascript" charset="utf-8">
+  /* Adding Quicktag buttons to the editor Wordpress ver. 3.3 and above
+  * - Button HTML ID (required)
+  * - Button display, value="" attribute (required)
+  * - Opening Tag (required)
+  * - Closing Tag (required)
+  * - Access key, accesskey="" attribute for the button (optional)
+  * - Title, title="" attribute (optional)
+  * - Priority/position on bar, 1-9 = first, 11-19 = second, 21-29 = third, etc. (optional)
+  */
+  QTags.addButton( 'eg_photocart_link', 'PcL',photocart_link_html_button);
+  </script>
+<?php
+}
+
+/******************* HTML EDITOR BUTTON ****************************/
 
 /************************************** ADD OPTIONS MENU TO ADMIN -> SETTINGS**************************************/
 function photocart_link_admin_actions() {

@@ -1,3 +1,58 @@
+function photocart_link_html_button() {
+
+  jQuery(document).ready(function() {
+//    event.defaultPrevented;
+
+    jQuery("<div style='display:hidden' id='dialog-form' title='Add Photocart Link Attributes'><table border=0 width=100%>" +
+      "<tr><td>imageID</td><td><input type=text size=20 id=imageID name=imageID></td></tr>" +
+      "<tr><td>imageType</td><td><select id=imageType name=imageType><option value='full'>Full</option>" +
+        "<option value='thumb'>Thumb</option></select></td></tr>" +
+      "<tr><td>imageHeight</td><td><input type=text size=20 id=imageHeight name=imageHeight></td></tr>" +
+      "<tr><td>imageWidth</td><td><input type=text size=20 id=imageWidth name=imageWidth></td></tr>" +
+      "<tr><td>imageAlign</td><td><select id=imageAlign name=imageAlign><option value='left'>Left</option>" +
+        "<option value='center'>Center</option><option value='right'>Right</option></select></td></tr>" +
+      "<tr><td>imageCaption</td><td><input type=text size=20 id=imageCaption name=imageCaption></td></tr>" +
+      "<tr><td>imageTitle</td><td><input type=text size=20 id=imageTitle name=imageTitle></td></tr>" +
+      "<tr><td>contSize</td><td><input type=text size=20 id=contSize name=contSize></td></tr>" +
+      "<tr><td>noImage</td><td><select id=noImage name=noImage><option value='false'>False</option>" +
+        "<option value='true'>True</option></select></td></tr>" +
+      "</table></div>").appendTo("body");
+
+    dialog.dialog("open");
+  });
+
+    dialog = jQuery( "#dialog-form" ).dialog({
+      'dialog-class': 'wp-dialog',
+      'modal': true,
+      'height': 425,
+      'width': 350,
+      'resizable': false,
+      'buttons': [
+        {
+          text: 'Ok',
+          click: function() {
+            jQuery( "#content" ).append( '[photocart_link imageID="' + document.getElementById('imageID').value + '"');
+            jQuery( "#content" ).append( ' imageType="' + document.getElementById('imageType').value + '"');
+            jQuery( "#content" ).append( ' imageWidth="' + document.getElementById('imageWidth').value + '"');
+            jQuery( "#content" ).append( ' imageHeight="' + document.getElementById('imageHeight').value + '"');
+            jQuery( "#content" ).append( ' imageAlign="' + document.getElementById('imageAlign').value + '"');
+            jQuery( "#content" ).append( ' imageCaption="' + document.getElementById('imageCaption').value + '"');
+            jQuery( "#content" ).append( ' imageTitle="' + document.getElementById('imageTitle').value + '"');
+            jQuery( "#content" ).append( ' contSize="' + document.getElementById('contSize').value + '"');
+            jQuery( "#content" ).append( ' noImage="' + document.getElementById('noImage').value + '"]');
+            jQuery( this ).dialog( "close" );
+          }
+        },
+        {
+          text: 'Cancel',
+          click: function() {
+            jQuery( this ).dialog( "close" );
+          }
+        }
+      ]
+    });
+}
+
 (function() {
     tinymce.PluginManager.add('photocart_link_tc_button', function( editor, url ) {
         editor.addButton( 'photocart_link_tc_button', {
@@ -15,7 +70,7 @@
 	        {
         	    type: 'listbox', 
 	            name: 'imageType', 
-	            label: 'Image Type', 
+	            label: 'imageType', 
         	    'values': [
 	                {text: 'Full', value: 'full'},
 	                {text: 'Thumb', value: 'thumb'}
@@ -34,7 +89,7 @@
 	        {
         	    type: 'listbox', 
 	            name: 'imageAlign', 
-	            label: 'Image Align', 
+	            label: 'imageAlign', 
         	    'values': [
 	                {text: 'Left', value: 'left'},
 	                {text: 'Center', value: 'center'},

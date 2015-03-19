@@ -14,3 +14,4 @@ a img.pc_aligncenter             {display:block;margin-left:auto;margin-right:au
 .pc_caption.pc_alignright        {margin:5px 0 20px 20px;}
 .pc_caption pc_img               {border:0 none;height:auto;margin:0;max-width:98.5%;padding:0;width:auto;}
 .pc_caption p.pc_caption-text {font-size:0.9em;line-height:1.5em;margin:0;padding:4px 5px;}
+.ui-dialog button.okButtonClass {background: green;}
