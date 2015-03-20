@@ -4,7 +4,7 @@
     Plugin URI: http://www.kaymeephotography.com
     Description: Plugin for displaying images from a Photocart Photography Shopping Cart by PicturesPro using a shortcode
     Author: Chad McCoskey
-    Version: 1.5
+    Version: 1.6
     Author URI: http://www.kaymeephotography.com
     Copyright 2014  Chad McCoskey  (email : chad@kaymeephotography.com)
     This program is free software; you can redistribute it and/or modify
@@ -284,6 +284,7 @@ function queue_my_admin_scripts() {
 function eg_quicktags() {
 ?>
 
+  <div style='display:none' id='dialog-form' title='Add Photocart Link Attributes'></div>
   <script type="text/javascript" charset="utf-8">
   /* Adding Quicktag buttons to the editor Wordpress ver. 3.3 and above
   * - Button HTML ID (required)

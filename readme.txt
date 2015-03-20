@@ -3,7 +3,7 @@ Contributors: Chad McCoskey
 Tags: photocart, picturespro
 Requires at least: 3.0.1
 Tested up to: 4.1.1
-Stable tag: 1.5
+Stable tag: 1.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -85,8 +85,12 @@ Leaving either imageWidth or imageHeight while entering a number for the
 other dimension will create a image proportional to the original.
 
 == Screenshots ==
+http://www.kaymeephotography.com
 
 == Changelog ==
+= 1.6 =
+*Updated TEXT form opener*
+*Please note the TEXT version doesn't work so well in Firefox or Chrome
 = 1.5 =
 *Bug fix for the TEXT form opener
 = 1.4 =
@@ -108,6 +112,9 @@ other dimension will create a image proportional to the original.
 *Initial release.
 
 == Upgrade Notice ==
+= 1.6 =
+*Updated TEXT form opener*
+*Please note the TEXT version doesn't work so well in Firefox or Chrome
 = 1.5 =
 *Bug fix for the TEXT form opener
 = 1.4 =

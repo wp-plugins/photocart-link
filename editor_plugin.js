@@ -1,5 +1,5 @@
 function photocart_link_html_button() {
-    jQuery("<div style='display:none' id='dialog-form' title='Add Photocart Link Attributes'><table border=0 width=100%>" +
+    jQuery("<table border=0 width=100%>" +
       "<tr><td>imageID</td><td><input type=text size=20 id=imageID name=imageID></td></tr>" +
       "<tr><td>imageType</td><td><select id=imageType name=imageType><option value='full'>Full</option>" +
         "<option value='thumb'>Thumb</option></select></td></tr>" +
@@ -12,10 +12,10 @@ function photocart_link_html_button() {
       "<tr><td>contSize</td><td><input type=text size=20 id=contSize name=contSize></td></tr>" +
       "<tr><td>noImage</td><td><select id=noImage name=noImage><option value='false'>False</option>" +
         "<option value='true'>True</option></select></td></tr>" +
-      "</table></div>").appendTo("body");
+      "</table>").appendTo("#dialog-form");
 
     dialog = jQuery( "#dialog-form" ).dialog({
-      'dialog-class': 'wp-dialog',
+      'dialog-class': 'no-close',
       'modal': true,
       'height': 425,
       'width': 350,
@@ -33,16 +33,25 @@ function photocart_link_html_button() {
             jQuery( "#content" ).append( ' imageTitle="' + document.getElementById('imageTitle').value + '"');
             jQuery( "#content" ).append( ' contSize="' + document.getElementById('contSize').value + '"');
             jQuery( "#content" ).append( ' noImage="' + document.getElementById('noImage').value + '"]');
-            jQuery( this ).dialog( "close" );
+            jQuery( "#dialog-form" ).empty();
+            jQuery( "#dialog-form" ).dialog( "destroy");
+            jQuery( "#dialog-form").dialog( "close" );
           }
         },
         {
           text: 'Cancel',
           click: function() {
-            jQuery( this ).dialog( "close" );
+            jQuery( "#dialog-form" ).empty();
+            jQuery( "#dialog-form").dialog( "destroy");
+            jQuery( "#dialog-form").dialog( "close" );
           }
         }
-      ]
+      ],
+      close: function() {
+        jQuery( "#dialog-form" ).empty();
+        jQuery( "#dialog-form").dialog( "destroy");
+        jQuery( "#dialog-form").dialog( "close" );
+      }
     });
 
   jQuery(document).ready(function() {
